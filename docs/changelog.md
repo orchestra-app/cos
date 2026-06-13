@@ -25,7 +25,17 @@ conventions (`Added` / `Changed` / `Deprecated` / `Removed` / `Fixed` / `Securit
 
 ## [Unreleased]
 
-_Changes merged to `main` but not yet tagged will be listed here._
+### Added
+
+- **Unanswered messages** — a board view of *"messages you still owe a reply to."* A toolbar
+  button opens a slide-over listing each flagged message (context · who · date · message) with a
+  one-click **Mark answered** that clears it from the view. Backed by an additive status flag on the
+  existing message (`MessageRecord.needsAnswer` / `answeredAt` / `context`), four new `board` MCP
+  tools (`add_unanswered_message`, `mark_message_unanswered`, `mark_message_answered`,
+  `list_unanswered_messages`), and a new `unanswered-messages` operator skill that sweeps Gmail +
+  WhatsApp for unreplied threads and clears each one once you reply. Bumps the store `schemaVersion`
+  to **9** (additive — old files read unchanged). See
+  [Unanswered messages](features/unanswered-messages.md).
 
 ## [0.1.0] — 2026-06-13
 

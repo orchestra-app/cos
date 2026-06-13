@@ -119,6 +119,13 @@ nav:
       - MCP servers: architecture/mcp-servers.md
       - Platform API: architecture/platform-api.md
       - Case hierarchy: architecture/hierarchy.md
+  - Features:
+      - Board: features/board.md
+      - Activity: features/activity.md
+      - Calendar: features/calendar.md
+      - Reminders: features/reminders.md
+      - Priorities: features/priorities.md
+      - Unanswered messages: features/unanswered-messages.md
   - Security:
       - Prompt-injection guard: security/guard.md
   - Subsystems:

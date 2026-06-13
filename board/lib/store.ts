@@ -83,6 +83,8 @@ const nowISO = (): string => new Date().toISOString();
 // CaseRecord.starred is an optional that rides through migrateCase's spread.
 // v8 (MessageRecord.url) is likewise a no-op here — the optional original-message
 // deep-link rides through the messages[] array verbatim (no per-message transform).
+// v9 (MessageRecord.needsAnswer/answeredAt/context — the unanswered-messages flags) is
+// likewise a no-op here: the optionals ride through the messages[] array verbatim.
 export function migrate(raw: unknown): DBShape {
   const obj = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
 
@@ -819,6 +821,9 @@ export function cleanCases(db: DBShape, ids: string[]): { cases: number; message
       continue;
     }
     const stillReferenced =
+      // A still-owed reply must survive its case's deletion (it stays in the
+      // unanswered view even with no case); its dangling caseId is cleared below.
+      (m.needsAnswer === true && !m.answeredAt) ||
       Boolean(m.reminderId) ||
       survivingMsgRefs.has(m.id) ||
       (m.caseId !== undefined && survivingCaseIds.has(m.caseId));
